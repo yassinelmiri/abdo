@@ -1,587 +1,893 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MELOTREX · Abdou Sall (partage & contact)</title>
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- QR Code styling only (API de secours) -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdou Sall · MELOTREX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(145deg, #f0e4e4 0%, #e6d6d6 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
+<style>
+:root {
+  --red: #c02f2f;
+  --red-dark: #961f1f;
+  --red-light: #f7e8e8;
+  --red-mid: #e8c4c4;
+  --text: #1a1a2e;
+  --text-muted: #6b7280;
+  --white: #ffffff;
+  --surface: #fafafa;
+  --border: #f0d8d8;
+}
 
-        /* carte principale */
-        .business-card {
-            max-width: 880px;
-            width: 100%;
-            background-color: #ffffff;
-            border-radius: 2.5rem 2.5rem 2rem 2rem;
-            box-shadow: 0 30px 50px rgba(180, 40, 40, 0.25), 0 12px 25px rgba(0,0,0,0.15);
-            overflow: hidden;
-            transition: transform 0.2s ease;
-        }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-        /* bande supérieure - ROUGE */
-        .card-header {
-            background-color: #c02f2f;
-            padding: 1.2rem 2.2rem 1rem 2.2rem;
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.5rem 1rem;
-        }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #f4eded;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px 40px;
+}
 
-        .company-title {
-            font-size: 2.1rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: white;
-            line-height: 1.1;
-            text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
+/* ───── CARD ───── */
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--white);
+  border-radius: 28px;
+  box-shadow: 0 20px 60px rgba(192,47,47,0.14), 0 4px 16px rgba(0,0,0,0.06);
+  overflow: hidden;
+  animation: slideUp 0.5s cubic-bezier(.22,1,.36,1) both;
+}
 
-        .company-title span {
-            font-weight: 300;
-            font-size: 1.7rem;
-            margin-left: 0.2rem;
-            color: #ffe1e1;
-        }
+@keyframes slideUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
 
-        .slogan {
-            color: rgba(255,255,255,0.9);
-            font-size: 1rem;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: rgba(255,255,255,0.18);
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            backdrop-filter: blur(2px);
-            white-space: nowrap;
-        }
+/* ───── HEADER BANNER ───── */
+.banner {
+  background: linear-gradient(135deg, #c02f2f 0%, #8b1a1a 100%);
+  padding: 20px 24px 0;
+  position: relative;
+  overflow: hidden;
+}
 
-        /* identité avec LOGO (image) bien affiché */
-        .card-profile {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 2rem;
-            padding: 2rem 2.2rem 1.2rem 2.2rem;
-            background: white;
-        }
+.banner::before {
+  content:'';
+  position:absolute;
+  top:-40px; right:-40px;
+  width:180px; height:180px;
+  background: rgba(255,255,255,0.06);
+  border-radius:50%;
+}
 
-        .avatar-frame {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #c02f2f, #a01e1e);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 16px rgba(192,47,47,0.3);
-            flex-shrink: 0;
-        }
+.banner::after {
+  content:'';
+  position:absolute;
+  bottom:-20px; left:30px;
+  width:100px; height:100px;
+  background: rgba(255,255,255,0.04);
+  border-radius:50%;
+}
 
-        .logo-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid white;
-            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.05);
-            overflow: hidden; /* pour éviter tout débordement */
-        }
+.banner-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:relative;
+  z-index:1;
+}
 
-        .logo-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* remplit le cercle sans déformation */
-            display: block;
-            border-radius: 50%;
-        }
+.brand {
+  font-family:'Sora',sans-serif;
+  font-size:1.4rem;
+  font-weight:800;
+  color:#fff;
+  letter-spacing:1px;
+}
 
-        .name-title {
-            flex: 2 1 200px;
-        }
+.brand span { font-weight:300; opacity:.7; font-size:1.1rem; }
 
-        .name-title h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #2a1e26;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-        }
+.badge {
+  background:rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.95);
+  font-size:.7rem;
+  font-weight:600;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  padding:5px 12px;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,0.2);
+  backdrop-filter:blur(4px);
+}
 
-        .name-title .role {
-            font-size: 1.2rem;
-            color: #c02f2f;
-            font-weight: 600;
-            margin-top: 0.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
+/* Avatar area */
+.avatar-area {
+  display:flex;
+  align-items:flex-end;
+  gap:16px;
+  padding:20px 0 0;
+  position:relative;
+  z-index:1;
+}
 
-        .role i {
-            font-size: 1.1rem;
-            color: #c05a5a;
-        }
+.avatar-wrap {
+  width:80px; height:80px;
+  border-radius:50%;
+  border:3px solid rgba(255,255,255,0.9);
+  background:#fff;
+  overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,0.2);
+  flex-shrink:0;
+  position:relative;
+  top:16px;
+}
 
-        .company-detail {
-            margin-left: auto;
-            text-align: right;
-            background: #fff1f1;
-            padding: 0.7rem 1.5rem;
-            border-radius: 60px;
-            font-size: 0.95rem;
-            color: #3a2a34;
-            font-weight: 500;
-            max-width: 280px;
-            border: 1px solid #f0c0c0;
-            flex-shrink: 0;
-        }
+.avatar-wrap img { width:100%; height:100%; object-fit:cover; }
 
-        .company-detail i {
-            color: #c02f2f;
-            width: 1.2rem;
-        }
+.avatar-name {
+  padding-bottom:18px;
+  color:#fff;
+}
 
-        .company-detail .adresse {
-            font-weight: 400;
-            line-height: 1.4;
-        }
+.avatar-name h1 {
+  font-family:'Sora',sans-serif;
+  font-size:1.5rem;
+  font-weight:800;
+  line-height:1.1;
+  letter-spacing:-.3px;
+}
 
-        /* ligne Enregistrer / Partager - avec fonctions actives */
-        .action-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            background: #fff7f7;
-            padding: 0.9rem 2.2rem;
-            border-top: 1px solid rgba(192,47,47,0.2);
-            border-bottom: 1px solid rgba(192,47,47,0.2);
-        }
+.avatar-name p {
+  font-size:.85rem;
+  opacity:.8;
+  margin-top:3px;
+  font-weight:400;
+}
 
-        .contact-buttons {
-            display: flex;
-            gap: 1.8rem;
-            flex-wrap: wrap;
-        }
+/* ───── PROFILE BODY ───── */
+.profile-body {
+  padding:24px 20px 0;
+}
 
-        .btn-outline, .btn-solid {
-            font-size: 0.95rem;
-            padding: 0.5rem 1.5rem;
-            border-radius: 40px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.15s;
-            border: none;
-            cursor: pointer;
-        }
+/* Location chip */
+.location-chip {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:var(--red-light);
+  color:var(--red);
+  font-size:.8rem;
+  font-weight:600;
+  padding:5px 12px;
+  border-radius:50px;
+  margin-bottom:20px;
+}
 
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #c02f2f;
-            color: #c02f2f;
-        }
-        .btn-outline:hover {
-            background: #ffe0e0;
-        }
+/* ───── ACTION BUTTONS ───── */
+.action-buttons {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:20px;
+}
 
-        .btn-solid {
-            background: #c02f2f;
-            color: white;
-            box-shadow: 0 4px 10px rgba(192,47,47,0.3);
-        }
-        .btn-solid:hover {
-            background: #a52020;
-        }
+.btn {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px 16px;
+  border-radius:14px;
+  font-family:'DM Sans',sans-serif;
+  font-size:.9rem;
+  font-weight:600;
+  cursor:pointer;
+  border:none;
+  transition:all .2s ease;
+  text-decoration:none;
+}
 
-        .share-icons {
-            display: flex;
-            gap: 1.5rem;
-            font-size: 1.3rem;
-        }
+.btn-primary {
+  background:var(--red);
+  color:#fff;
+  box-shadow:0 4px 14px rgba(192,47,47,0.35);
+}
 
-        .share-icons a, .share-icons i {
-            color: #c02f2f;
-            opacity: 0.8;
-            transition: 0.1s;
-        }
-        .share-icons a:hover { opacity: 1; }
+.btn-primary:hover { background:var(--red-dark); transform:translateY(-1px); }
+.btn-primary:active { transform:translateY(0); }
 
-        /* grille des contacts 4x2 */
-        .connect-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.2rem 1.2rem;
-            padding: 1.8rem 2.2rem 1.8rem 2.2rem;
-            background: white;
-        }
+.btn-secondary {
+  background:var(--red-light);
+  color:var(--red);
+  border:1.5px solid var(--red-mid);
+}
 
-        .connect-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            gap: 0.5rem;
-            padding: 1rem 0.3rem;
-            border-radius: 28px;
-            background: #fff5f5;
-            transition: all 0.1s ease;
-            border: 1px solid transparent;
-            color: #2f1e2b;
-            text-decoration: none;
-            min-width: 0;
-        }
+.btn-secondary:hover { background:var(--red-mid); }
 
-        .connect-item:hover {
-            background: #ffe0e0;
-            border-color: #d99c9c;
-            transform: scale(1.02);
-        }
+/* ───── CONNECT GRID ───── */
+.section-label {
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  margin-bottom:12px;
+}
 
-        .connect-item i {
-            font-size: 2.2rem;
-            color: #c02f2f;
-        }
+.connect-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-bottom:20px;
+}
 
-        .connect-item span {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #3d2a37;
-            text-transform: lowercase;
-            word-break: break-word;
-        }
+.conn-item {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  padding:12px 6px;
+  border-radius:16px;
+  background:var(--surface);
+  border:1px solid #f0eded;
+  text-decoration:none;
+  transition:all .18s ease;
+  color:var(--text);
+}
 
-        .connect-item span::first-letter {
-            text-transform: uppercase;
-        }
+.conn-item:hover {
+  background:var(--red-light);
+  border-color:var(--red-mid);
+  transform:translateY(-2px);
+}
 
-        .connect-item a {
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            width: 100%;
-        }
+.conn-item i {
+  font-size:1.3rem;
+  color:var(--red);
+}
 
-        /* SECTION BASSE : QR + coordonnées */
-        .qr-footer {
-            background: white;
-            padding: 1.5rem 2.2rem 2rem 2.2rem;
-            border-top: 2px solid #f0c0c0;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-        }
+.conn-item span {
+  font-size:.68rem;
+  font-weight:600;
+  color:var(--text-muted);
+  text-align:center;
+  line-height:1.2;
+}
 
-        .contact-info-compact {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            color: #31222c;
-            font-size: 1rem;
-            background: #fff9f9;
-            padding: 1rem 1.5rem;
-            border-radius: 32px;
-            border: 1px solid #fad7d7;
-            flex: 2 1 260px;
-        }
+/* ───── CONTACT INFO ───── */
+.contact-info {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px 16px;
+  margin-bottom:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
 
-        .contact-info-compact i {
-            color: #c02f2f;
-            width: 1.8rem;
-            text-align: center;
-            font-size: 1.1rem;
-        }
+.info-row {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:.85rem;
+  color:var(--text);
+  text-decoration:none;
+}
 
-        .info-line {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
+.info-row a { color:var(--text); text-decoration:none; }
+.info-row a:hover { color:var(--red); }
 
-        .qr-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #fff2f2;
-            padding: 1rem 1.5rem;
-            border-radius: 40px;
-            border: 1px solid #f0c0c0;
-            flex: 0 0 auto;
-        }
+.info-icon {
+  width:32px; height:32px;
+  background:var(--red-light);
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
 
-        .qr-image {
-            width: 110px;
-            height: 110px;
-            background: white;
-            border-radius: 20px;
-            padding: 8px;
-            box-shadow: 0 4px 12px rgba(192,47,47,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.info-icon i { font-size:.85rem; color:var(--red); }
 
-        .qr-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-        }
+/* ───── QR FOOTER ───── */
+.card-footer {
+  background:linear-gradient(135deg, #1a1a2e 0%, #2d1515 100%);
+  padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
 
-        .qr-block span {
-            font-size: 0.85rem;
-            color: #c02f2f;
-            font-weight: 600;
-            margin-top: 0.6rem;
-            letter-spacing: 0.5px;
-        }
+.footer-text h3 {
+  font-family:'Sora',sans-serif;
+  font-size:1rem;
+  color:#fff;
+  font-weight:700;
+}
 
-        /* fallback pour les anciens navigateurs */
-        .hidden { display: none; }
+.footer-text p {
+  font-size:.78rem;
+  color:rgba(255,255,255,.5);
+  margin-top:3px;
+}
 
-        /* responsive */
-        @media (max-width: 750px) {
-            .card-profile {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .name-title h1 { font-size: 2rem; }
-            .company-detail {
-                margin-left: 0;
-                text-align: center;
-                width: 100%;
-                max-width: none;
-            }
-            .action-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
-            .connect-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+.footer-text a {
+  display:inline-block;
+  margin-top:8px;
+  font-size:.8rem;
+  color:var(--red);
+  font-weight:600;
+  text-decoration:none;
+}
 
-        @media (max-width: 550px) {
-            .qr-footer {
-                flex-direction: column-reverse;
-                align-items: center;
-                text-align: center;
-            }
-            .contact-info-compact { width: 100%; }
-            .info-line { justify-content: center; }
-        }
+.qr-wrap {
+  background:#fff;
+  padding:8px;
+  border-radius:14px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.3);
+  flex-shrink:0;
+}
 
-        @media (max-width: 400px) {
-            .connect-grid { grid-template-columns: 1fr; }
-            .card-header { flex-direction: column; align-items: flex-start; }
-        }
-    </style>
+.qr-wrap img {
+  width:80px; height:80px;
+  display:block;
+}
+
+/* ───── SHARE MODAL (Facebook style) ───── */
+.modal-overlay {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  z-index:1000;
+  align-items:flex-end;
+  justify-content:center;
+  backdrop-filter:blur(3px);
+}
+
+.modal-overlay.active { display:flex; }
+
+.modal {
+  background:#fff;
+  border-radius:24px 24px 0 0;
+  width:100%;
+  max-width:520px;
+  padding:0 0 env(safe-area-inset-bottom);
+  animation:slideModal .32s cubic-bezier(.22,1,.36,1) both;
+  overflow:hidden;
+}
+
+@keyframes slideModal {
+  from { transform:translateY(100%); }
+  to   { transform:translateY(0); }
+}
+
+.modal-handle {
+  width:36px; height:4px;
+  background:#e0e0e0;
+  border-radius:50px;
+  margin:12px auto 0;
+}
+
+.modal-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 20px 12px;
+  border-bottom:1px solid #f0f0f0;
+}
+
+.modal-header h2 {
+  font-family:'Sora',sans-serif;
+  font-size:1.1rem;
+  font-weight:800;
+  color:var(--text);
+}
+
+.modal-close {
+  width:32px; height:32px;
+  background:#f0f0f0;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  border:none;
+  color:var(--text);
+  font-size:1rem;
+  transition:background .15s;
+}
+
+.modal-close:hover { background:#e0e0e0; }
+
+/* Preview card inside modal */
+.modal-preview {
+  margin:16px 20px;
+  border:1px solid #e8e8e8;
+  border-radius:16px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+}
+
+.modal-preview-thumb {
+  width:52px; height:52px;
+  border-radius:12px;
+  background:var(--red);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-family:'Sora',sans-serif;
+  font-size:1.2rem;
+  font-weight:800;
+  color:#fff;
+}
+
+.modal-preview-info h4 {
+  font-weight:700;
+  font-size:.9rem;
+  color:var(--text);
+}
+
+.modal-preview-info p {
+  font-size:.78rem;
+  color:var(--text-muted);
+  margin-top:2px;
+}
+
+.modal-preview-info a {
+  font-size:.75rem;
+  color:var(--red);
+  font-weight:600;
+}
+
+/* Comment box */
+.modal-comment {
+  margin:0 20px 16px;
+}
+
+.modal-comment textarea {
+  width:100%;
+  border:1px solid #e8e8e8;
+  border-radius:14px;
+  padding:12px 14px;
+  font-family:'DM Sans',sans-serif;
+  font-size:.9rem;
+  color:var(--text);
+  resize:none;
+  outline:none;
+  transition:border .2s;
+  background:var(--surface);
+}
+
+.modal-comment textarea:focus { border-color:var(--red); }
+.modal-comment textarea::placeholder { color:#bbb; }
+
+/* Share platforms */
+.modal-platforms {
+  padding:0 20px 4px;
+}
+
+.platforms-label {
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  margin-bottom:12px;
+}
+
+.platforms-row {
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:4px;
+  scrollbar-width:none;
+}
+
+.platforms-row::-webkit-scrollbar { display:none; }
+
+.platform-btn {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  min-width:60px;
+  cursor:pointer;
+  border:none;
+  background:none;
+  font-family:'DM Sans',sans-serif;
+  transition:transform .15s;
+}
+
+.platform-btn:hover { transform:scale(1.08); }
+
+.platform-icon {
+  width:52px; height:52px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.4rem;
+  color:#fff;
+}
+
+.platform-btn span {
+  font-size:.68rem;
+  font-weight:600;
+  color:var(--text-muted);
+}
+
+/* WhatsApp */   .p-wa   { background:#25D366; }
+/* Email */      .p-email{ background:#EA4335; }
+/* Facebook */   .p-fb   { background:#1877F2; }
+/* Instagram */  .p-ig   { background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+/* LinkedIn */   .p-li   { background:#0A66C2; }
+/* SMS */        .p-sms  { background:#34C759; }
+/* Copy Link */  .p-copy { background:#6c757d; }
+/* Telegram */   .p-tg   { background:#2CA5E0; }
+
+/* Modal bottom CTA */
+.modal-cta {
+  padding:16px 20px 24px;
+  border-top:1px solid #f0f0f0;
+  display:flex;
+  gap:10px;
+}
+
+.btn-modal-share {
+  flex:1;
+  background:var(--red);
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  padding:13px;
+  font-family:'DM Sans',sans-serif;
+  font-size:.95rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:background .15s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.btn-modal-share:hover { background:var(--red-dark); }
+
+.copy-feedback {
+  display:none;
+  position:fixed;
+  bottom:100px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#1a1a2e;
+  color:#fff;
+  padding:10px 20px;
+  border-radius:50px;
+  font-size:.85rem;
+  font-weight:600;
+  z-index:2000;
+  animation:fadeUp .4s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translate(-50%,12px); }
+  to   { opacity:1; transform:translate(-50%,0); }
+}
+
+/* ───── RESPONSIVE ───── */
+@media(max-width:400px) {
+  .connect-grid { grid-template-columns:repeat(4,1fr); }
+  .conn-item span { font-size:.6rem; }
+}
+</style>
 </head>
 <body>
-    <div class="business-card">
-        <!-- En‑tête MELOTREX SAS couleur ROUGE -->
-        <div class="card-header">
-            <div class="company-title">
-                MELOTREX <span>SAS</span>
-            </div>
-            <div class="slogan">
-                <i class="fas fa-gem" style="color: #ffd966; margin-right: 6px;"></i> confiance & innovation
-            </div>
-        </div>
 
-        <!-- Bloc identité : LOGO (affichage corrigé : object-fit cover) -->
-        <div class="card-profile">
-            <div class="avatar-frame">
-                <div class="logo-image">
-                    <img src="./logo.png" alt="logo MELOTREX" 
-                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23c02f2f\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\' font-family=\'Arial\'%3EM%3C/text%3E%3C/svg%3E';">
-                </div>
-            </div>
-            <div class="name-title">
-                <h1>Abdou Sall</h1>
-                <div class="role">
-                    <i class="fas fa-user-tie"></i> Responsable
-                </div>
-            </div>
-            <div class="company-detail">
-                <div class="info-line"><i class="fas fa-building"></i> MELOTREX SAS</div>
-                <div class="adresse">
-                    61-69 rue Camille Pelletan<br>
-                    immeuble Emeraude 2<br>
-                    33150 Cenon, France
-                </div>
-            </div>
-        </div>
+<div class="card">
 
-        <!-- Ligne Enregistrer / Partager avec fonctions actives -->
-        <div class="action-row">
-            <div class="contact-buttons">
-                <!-- Bouton Enregistrer (télécharge un fichier .vcf) -->
-                <button class="btn-outline" id="saveContactBtn"><i class="far fa-address-card"></i> Enregistrer</button>
-                <!-- Bouton Partager (utilise l'API Web Share si disponible) -->
-                <button class="btn-solid" id="shareBtn"><i class="fas fa-share-alt"></i> Partager</button>
-            </div>
-            <div class="share-icons">
-                <a href="https://www.linkedin.com/in/abdou-sall-b6021a153/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="mailto:a.sall@melotrex.com"><i class="fas fa-envelope"></i></a>
-                <i class="fas fa-ellipsis-h"></i>
-            </div>
-        </div>
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="banner-top">
+      <div class="brand">MELOTREX <span>SAS</span></div>
+      <div class="badge"><i class="fas fa-gem" style="color:#ffd966;margin-right:4px;font-size:.6rem"></i> confiance & innovation</div>
+    </div>
+    <div class="avatar-area">
+      <div class="avatar-wrap">
+        <img src="./logo.png" alt="MELOTREX"
+             onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\'%3E%3Ccircle cx=\'40\' cy=\'40\' r=\'40\' fill=\'%23c02f2f\'/%3E%3Ctext x=\'40\' y=\'56\' font-size=\'42\' text-anchor=\'middle\' fill=\'white\' font-family=\'Arial\'%3EM%3C/text%3E%3C/svg%3E'">
+      </div>
+      <div class="avatar-name">
+        <h1>Abdou Sall</h1>
+        <p><i class="fas fa-user-tie" style="margin-right:5px;font-size:.75rem"></i>Responsable </p>
+      </div>
+    </div>
+  </div>
 
-        <!-- Zone "CONNECTER" -->
-        <div style="padding: 0.2rem 2.2rem 0; background: white; font-weight: 600; color: #c02f2f; font-size: 1.5rem;">
-            CONNECTER
-        </div>
+  <!-- PROFILE BODY -->
+  <div class="profile-body">
 
-        <!-- Grille 4x2 de contacts -->
-        <div class="connect-grid">
-            <div class="connect-item"><a href="#"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a></div>
-            <div class="connect-item"><a href="mailto:a.sall@melotrex.com"><i class="fas fa-envelope"></i><span>e‑mail</span></a></div>
-            <div class="connect-item"><a href="tel:+33769445731"><i class="fas fa-phone-alt"></i><span>appel</span></a></div>
-            <div class="connect-item"><a href="https://maps.google.com/?q=61-69+rue+Camille+Pelletan+33150+Cenon" target="_blank"><i class="fas fa-map-marker-alt"></i><span>localisation</span></a></div>
-            <div class="connect-item"><a href="https://melotrex.eu/" target="_blank"><i class="fas fa-globe"></i><span>site web</span></a></div>
-            <div class="connect-item"><a href="https://www.facebook.com/kool.deejay" target="_blank"><i class="fab fa-facebook"></i><span>facebook</span></a></div>
-            <div class="connect-item"><a href="#"><i class="fas fa-video"></i><span>chaine vidéo</span></a></div>
-            <div class="connect-item"><a href="https://www.instagram.com/abdou_khadre_sall/" target="_blank"><i class="fab fa-instagram"></i><span>instagram</span></a></div>
-        </div>
-
-        <!-- SECTION BASSE : QR (fichier local) + coordonnées -->
-        <div class="qr-footer">
-            <!-- Coordonnées téléphoniques et email -->
-            <div class="contact-info-compact">
-                <div class="info-line"><i class="fas fa-phone-alt"></i> +33 5 47 79 43 00 (Fax)</div>
-                <div class="info-line"><i class="fas fa-mobile-alt"></i> +33 7 69 44 57 31</div>
-                <div class="info-line"><i class="fas fa-envelope"></i> a.sall@melotrex.com</div>
-                <div class="info-line"><i class="fas fa-fax"></i> +33 5 47 79 43 00</div>
-                <div class="info-line" style="margin-top:4px;"><i class="fas fa-link"></i> melotrex.eu</div>
-            </div>
-
-            <!-- QR code depuis le fichier local QR.png -->
-            <div class="qr-block">
-                <div class="qr-image">
-                    <img src="./QR.png" alt="QR Melotrex"
-                         onerror="this.onerror=null; this.src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=https://melotrex.eu/&choe=UTF-8';">
-                </div>
-                <span>SCANNEZ · SITE WEB</span>
-            </div>
-        </div>
-
-        <!-- signature discrète -->
-        <div style="background: white; padding: 0.2rem 2.2rem 1.2rem 2.2rem; text-align: right; color: #c07a7a; font-size: 0.9rem; border-top: 1px solid #fadcdc;">
-            <i class="fas fa-check-circle" style="color: #c02f2f;"></i> connecté avec MELOTREX
-        </div>
+    <div style="margin-top:24px; margin-bottom:16px;">
+      <div class="location-chip">
+        <i class="fas fa-map-marker-alt" style="font-size:.75rem"></i>
+        Cenon, Bordeaux — France
+      </div>
     </div>
 
-    <!-- Script pour les boutons Enregistrer et Partager -->
-    <script>
-        (function() {
-            // Création du contact VCF (vCard)
-            function generateVCard() {
-                return `BEGIN:VCARD
+    <!-- ACTION BUTTONS -->
+    <div class="action-buttons">
+      <button class="btn btn-primary" id="shareBtn">
+        <i class="fas fa-share-alt"></i> Partager
+      </button>
+      <button class="btn btn-secondary" id="saveBtn">
+        <i class="far fa-address-card"></i> Enregistrer
+      </button>
+    </div>
+
+    <!-- CONNECT GRID -->
+    <div class="section-label">Connecter</div>
+    <div class="connect-grid">
+      <a class="conn-item" href="https://wa.me/33769445731" target="_blank">
+        <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
+      </a>
+      <a class="conn-item" href="mailto:a.sall@melotrex.com">
+        <i class="fas fa-envelope"></i><span>Email</span>
+      </a>
+      <a class="conn-item" href="tel:+33769445731">
+        <i class="fas fa-phone-alt"></i><span>Appel</span>
+      </a>
+      <a class="conn-item" href="https://maps.google.com/?q=61-69+rue+Camille+Pelletan+33150+Cenon" target="_blank">
+        <i class="fas fa-map-marker-alt"></i><span>Localisation</span>
+      </a>
+      <a class="conn-item" href="https://melotrex.eu/" target="_blank">
+        <i class="fas fa-globe"></i><span>Site web</span>
+      </a>
+      <a class="conn-item" href="https://www.facebook.com/kool.deejay" target="_blank">
+        <i class="fab fa-facebook"></i><span>Facebook</span>
+      </a>
+      <a class="conn-item" href="https://www.instagram.com/abdou_khadre_sall/" target="_blank">
+        <i class="fab fa-instagram"></i><span>Instagram</span>
+      </a>
+      <a class="conn-item" href="https://www.linkedin.com/in/abdou-sall-b6021a153/" target="_blank">
+        <i class="fab fa-linkedin-in"></i><span>LinkedIn</span>
+      </a>
+    </div>
+
+    <!-- CONTACT INFO -->
+    <div class="section-label">Coordonnées</div>
+    <div class="contact-info">
+      <div class="info-row">
+        <div class="info-icon"><i class="fas fa-mobile-alt"></i></div>
+        <a href="tel:+33769445731">+33 7 69 44 57 31</a>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="fas fa-phone"></i></div>
+        <a href="tel:+33547794300">+33 5 47 79 43 00 (standard)</a>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+        <a href="mailto:a.sall@melotrex.com">a.sall@melotrex.com</a>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <span>61-69 rue Camille Pelletan, immeuble Emeraude 2, 33150 Cenon</span>
+      </div>
+    </div>
+
+  </div><!-- /profile-body -->
+
+  <!-- QR FOOTER -->
+  <div class="card-footer">
+    <div class="footer-text">
+      <h3>MELOTREX SAS</h3>
+      <p>Scannez pour accéder<br>au site officiel</p>
+      <a href="https://melotrex.eu/" target="_blank">melotrex.eu <i class="fas fa-arrow-right" style="font-size:.7rem"></i></a>
+    </div>
+    <div class="qr-wrap">
+      <img src="./QR.png" alt="QR Melotrex"
+           onerror="this.onerror=null;this.src='https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=https://melotrex.eu/&choe=UTF-8'">
+    </div>
+  </div>
+
+</div><!-- /card -->
+
+
+<!-- ───── SHARE MODAL (Facebook-style bottom sheet) ───── -->
+<div class="modal-overlay" id="shareModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2>Partager cette carte</h2>
+      <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- Preview -->
+    <div class="modal-preview">
+      <div class="modal-preview-thumb">M</div>
+      <div class="modal-preview-info">
+        <h4>Abdou Sall · MELOTREX SAS</h4>
+        <p>Responsable </p>
+        <a href="https://melotrex.eu/" target="_blank">melotrex.eu</a>
+      </div>
+    </div>
+
+    <!-- Comment -->
+    <div class="modal-comment">
+      <textarea rows="2" placeholder="Ajoutez un commentaire..."></textarea>
+    </div>
+
+    <!-- Platforms -->
+    <div class="modal-platforms">
+      <div class="platforms-label">Envoyer via</div>
+      <div class="platforms-row">
+
+        <button class="platform-btn" onclick="shareTo('whatsapp')">
+          <div class="platform-icon p-wa"><i class="fab fa-whatsapp"></i></div>
+          <span>WhatsApp</span>
+        </button>
+
+        <button class="platform-btn" onclick="shareTo('facebook')">
+          <div class="platform-icon p-fb"><i class="fab fa-facebook-f"></i></div>
+          <span>Facebook</span>
+        </button>
+
+        <button class="platform-btn" onclick="shareTo('instagram')">
+          <div class="platform-icon p-ig"><i class="fab fa-instagram"></i></div>
+          <span>Instagram</span>
+        </button>
+
+        <button class="platform-btn" onclick="shareTo('telegram')">
+          <div class="platform-icon p-tg"><i class="fab fa-telegram-plane"></i></div>
+          <span>Telegram</span>
+        </button>
+
+        <button class="platform-btn" onclick="shareTo('linkedin')">
+          <div class="platform-icon p-li"><i class="fab fa-linkedin-in"></i></div>
+          <span>LinkedIn</span>
+        </button>
+
+        <button class="platform-btn" onclick="shareTo('email')">
+          <div class="platform-icon p-email"><i class="fas fa-envelope"></i></div>
+          <span>Email</span>
+        </button>
+
+        <button class="platform-btn" onclick="shareTo('sms')">
+          <div class="platform-icon p-sms"><i class="fas fa-sms"></i></div>
+          <span>SMS</span>
+        </button>
+
+        <button class="platform-btn" onclick="shareTo('copy')">
+          <div class="platform-icon p-copy"><i class="fas fa-link"></i></div>
+          <span>Copier</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="modal-cta">
+      <button class="btn-modal-share" onclick="shareTo('native')">
+        <i class="fas fa-share-alt"></i> Partager maintenant
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="copy-feedback" id="copyFeedback">✓ Lien copié !</div>
+
+
+<script>
+const SHARE_URL  = 'https://melotrex.eu/';
+const SHARE_TEXT = 'Abdou Sall — Responsable  chez MELOTREX SAS';
+
+// Open / close modal
+document.getElementById('shareBtn').addEventListener('click', () => {
+  document.getElementById('shareModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+});
+
+document.getElementById('closeModal').addEventListener('click', closeModal);
+document.getElementById('shareModal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('shareModal')) closeModal();
+});
+
+function closeModal() {
+  document.getElementById('shareModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Platform share actions
+function shareTo(platform) {
+  const url  = encodeURIComponent(SHARE_URL);
+  const text = encodeURIComponent(SHARE_TEXT);
+
+  const routes = {
+    whatsapp : `https://wa.me/?text=${text}%20${url}`,
+    facebook : `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+    telegram : `https://t.me/share/url?url=${url}&text=${text}`,
+    linkedin : `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+    email    : `mailto:?subject=${encodeURIComponent('Carte de visite Abdou Sall – MELOTREX')}&body=${text}%20${url}`,
+    sms      : `sms:?body=${text}%20${url}`,
+    instagram: null, // Instagram ne supporte pas le lien direct
+  };
+
+  if (platform === 'copy') {
+    navigator.clipboard.writeText(SHARE_URL).then(() => {
+      const fb = document.getElementById('copyFeedback');
+      fb.style.display = 'block';
+      setTimeout(() => { fb.style.display = 'none'; closeModal(); }, 1800);
+    });
+    return;
+  }
+
+  if (platform === 'instagram') {
+    navigator.clipboard.writeText(SHARE_URL).then(() => {
+      alert('Lien copié ! Ouvrez Instagram et collez-le dans votre story ou bio.');
+    });
+    closeModal();
+    return;
+  }
+
+  if (platform === 'native') {
+    if (navigator.share) {
+      navigator.share({ title:'Abdou Sall · MELOTREX', text:SHARE_TEXT, url:SHARE_URL })
+        .then(closeModal).catch(() => {});
+      return;
+    }
+    // Fallback to copy
+    navigator.clipboard.writeText(SHARE_URL).then(() => {
+      const fb = document.getElementById('copyFeedback');
+      fb.style.display = 'block';
+      setTimeout(() => { fb.style.display = 'none'; closeModal(); }, 1800);
+    });
+    return;
+  }
+
+  if (routes[platform]) {
+    window.open(routes[platform], '_blank');
+    closeModal();
+  }
+}
+
+// Save contact VCF
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const vcard = `BEGIN:VCARD
 VERSION:3.0
 FN:Abdou Sall
 N:Sall;Abdou;;;
-TITLE:Responsable développement
+TITLE:Responsable 
 ORG:MELOTREX SAS
-ADR:;;61-69 rue Camille Pelletan, immeuble Emeraude 2;33150 Cenon;France
-TEL;TYPE=WORK,FAX:+33 5 47 79 43 00
-TEL;TYPE=CELL:+33 7 69 44 57 31
+ADR;TYPE=WORK:;;61-69 rue Camille Pelletan\\, immeuble Emeraude 2;Cenon;;33150;France
+TEL;TYPE=CELL:+33769445731
+TEL;TYPE=WORK:+33547794300
 EMAIL:a.sall@melotrex.com
 URL:https://melotrex.eu/
-NOTE:Carte interactive MELOTREX
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/abdou-sall-b6021a153/
+X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/abdou_khadre_sall/
 END:VCARD`;
-            }
+  const blob = new Blob([vcard], { type:'text/vcard' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = 'abdou_sall_melotrex.vcf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+</script>
 
-            // Bouton Enregistrer (téléchargement vCard)
-            document.getElementById('saveContactBtn').addEventListener('click', function() {
-                const vcard = generateVCard();
-                const blob = new Blob([vcard], { type: 'text/vcard' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'abdou_sall_melotrex.vcf';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            });
-
-            // Bouton Partager (Web Share API si disponible, sinon fallback)
-            document.getElementById('shareBtn').addEventListener('click', function() {
-                const shareData = {
-                    title: 'Abdou Sall - MELOTREX',
-                    text: 'Responsable développement chez MELOTREX SAS',
-                    url: 'https://melotrex.eu/'
-                };
-
-                if (navigator.share && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                    // Mobile avec Web Share
-                    navigator.share(shareData).catch(() => {
-                        alert('Partage annulé ou non supporté');
-                    });
-                } else {
-                    // Fallback : copier le lien dans le presse-papier
-                    navigator.clipboard.writeText('https://melotrex.eu/').then(() => {
-                        alert('Lien copié dans le presse-papier !');
-                    }).catch(() => {
-                        prompt('Copiez ce lien :', 'https://melotrex.eu/');
-                    });
-                }
-            });
-
-            // Gestion du clic sur l'icône partage (ellipsis) — partage aussi
-            document.querySelector('.share-icons .fa-ellipsis-h').parentElement.addEventListener('click', function(e) {
-                e.preventDefault();
-                const shareData = {
-                    title: 'Abdou Sall - MELOTREX',
-                    text: 'Carte de visite professionnelle',
-                    url: 'https://melotrex.eu/'
-                };
-                if (navigator.share && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                    navigator.share(shareData).catch(() => {});
-                } else {
-                    navigator.clipboard.writeText('https://melotrex.eu/').then(() => {
-                        alert('Lien copié !');
-                    }).catch(() => {
-                        prompt('Copiez ce lien :', 'https://melotrex.eu/');
-                    });
-                }
-            });
-        })();
-    </script>
-
-    <!-- footnote -->
-    <div style="position: fixed; bottom: 6px; right: 16px; opacity:0.4; font-size:0.75rem; color:#b24646;">
-        carte · logo & QR · partage actif
-    </div>
 </body>
 </html>
