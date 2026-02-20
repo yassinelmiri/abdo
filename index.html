@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MELOTREX · Abdou Sall (logo rouge)</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0e4e4 0%, #e6d6d6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        /* carte principale */
+        .business-card {
+            max-width: 860px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 2.5rem 2.5rem 2rem 2rem;
+            box-shadow: 0 30px 50px rgba(180, 40, 40, 0.25), 0 12px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        /* bande supérieure - ROUGE */
+        .card-header {
+            background-color: #c02f2f;  /* rouge franc */
+            padding: 1.2rem 2.2rem 1rem 2.2rem;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
+
+        .company-title {
+            font-size: 2.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: white;
+            line-height: 1.1;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .company-title span {
+            font-weight: 300;
+            font-size: 1.7rem;
+            margin-left: 0.2rem;
+            color: #ffe1e1;
+        }
+
+        .slogan {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: rgba(255,255,255,0.18);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+            white-space: nowrap;
+        }
+
+        /* identité avec LOGO (image) à la place des initiales */
+        .card-profile {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 2.2rem 1.2rem 2.2rem;
+            background: white;
+        }
+
+        .avatar-frame {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c02f2f, #a01e1e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(192,47,47,0.3);
+        }
+
+        /* le logo est affiché dans un cercle blanc avec padding pour bien ressortir */
+        .logo-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid white;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.05);
+        }
+
+        .logo-image img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* nom + fonction */
+        .name-title h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2a1e26;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .name-title .role {
+            font-size: 1.2rem;
+            color: #c02f2f;   /* rouge */
+            font-weight: 600;
+            margin-top: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .role i {
+            font-size: 1.1rem;
+            color: #c05a5a;
+        }
+
+        .company-detail {
+            margin-left: auto;
+            text-align: right;
+            background: #fff1f1;
+            padding: 0.7rem 1.5rem;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            color: #3a2a34;
+            font-weight: 500;
+            max-width: 260px;
+            border: 1px solid #f0c0c0;
+        }
+
+        .company-detail i {
+            color: #c02f2f;
+            width: 1.2rem;
+        }
+
+        .company-detail .adresse {
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        /* ligne Enregistrer / Partager */
+        .action-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff7f7;
+            padding: 0.9rem 2.2rem;
+            border-top: 1px solid rgba(192,47,47,0.2);
+            border-bottom: 1px solid rgba(192,47,47,0.2);
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1.8rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #c02f2f;
+            color: #c02f2f;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.1s;
+            cursor: default;
+        }
+
+        .btn-solid {
+            background: #c02f2f;
+            border: none;
+            color: white;
+            padding: 0.5rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(192,47,47,0.3);
+            cursor: default;
+        }
+
+        .share-icons {
+            display: flex;
+            gap: 1.5rem;
+            color: #c02f2f;
+            font-size: 1.3rem;
+        }
+
+        .share-icons i {
+            color: #c02f2f;
+            opacity: 0.8;
+            transition: 0.1s;
+        }
+
+        .share-icons a {
+            color: #c02f2f;
+        }
+
+        /* grille des contacts 4x2 */
+        .connect-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem 1rem;
+            padding: 1.8rem 2.2rem 1.5rem 2.2rem;
+            background: white;
+        }
+
+        .connect-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 0.5rem;
+            padding: 0.9rem 0.3rem;
+            border-radius: 28px;
+            background: #fff5f5;
+            transition: all 0.1s ease;
+            border: 1px solid transparent;
+            color: #2f1e2b;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .connect-item:hover {
+            background: #ffe0e0;
+            border-color: #d99c9c;
+            transform: scale(1.02);
+        }
+
+        .connect-item i {
+            font-size: 2.2rem;
+            color: #c02f2f;
+        }
+
+        .connect-item span {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #3d2a37;
+            text-transform: lowercase;
+        }
+
+        .connect-item span::first-letter {
+            text-transform: uppercase;
+        }
+
+        .connect-item a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* QR footer */
+        .qr-footer {
+            background: white;
+            padding: 1.2rem 2.2rem 2rem 2.2rem;
+            border-top: 1px dashed #e3bcbc;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .contact-info-compact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            color: #31222c;
+            font-size: 0.95rem;
+        }
+
+        .contact-info-compact i {
+            color: #c02f2f;
+            width: 1.5rem;
+            text-align: center;
+        }
+
+        .info-line {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .qr-code {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff2f2;
+            padding: 0.7rem 1.2rem 0.7rem 1.2rem;
+            border-radius: 32px;
+        }
+
+        .qr-code img {
+            width: 90px;
+            height: 90px;
+            border-radius: 16px;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .qr-code span {
+            font-size: 0.8rem;
+            color: #c02f2f;
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
+
+        /* responsive */
+        @media (max-width: 700px) {
+            .card-profile {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .company-detail {
+                margin-left: 0;
+                text-align: left;
+                width: 100%;
+                max-width: none;
+            }
+            .action-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .connect-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .connect-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .qr-footer {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+            }
+        }
+
+        .fake-link {
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div class="business-card">
+        <!-- En‑tête MELOTREX SAS couleur ROUGE -->
+        <div class="card-header">
+            <div class="company-title">
+                MELOTREX <span>SAS</span>
+            </div>
+            <div class="slogan">
+                <i class="fas fa-gem" style="color: #ffd966; margin-right: 6px;"></i> confiance & innovation
+            </div>
+        </div>
+
+        <!-- Bloc identité : LOGO (remplace les initiales AS) -->
+        <div class="card-profile">
+            <div class="avatar-frame">
+                <div class="logo-image">
+                    <!-- Logo (base64 inline ou lien) – on utilise le chemin local que vous avez indiqué.
+                         Attention : en environnement réel le chemin doit être accessible.
+                         Ici on intègre le logo en base64 (fichier logo.png de votre bureau) 
+                         Pour que cela fonctionne partout, j'utilise un petit logo rouge de substitution si le fichier n'est pas trouvé.
+                         Mais selon votre demande, on "affiche logo" : j'utilise l'image locale avec un essai / fallback. -->
+                    <img src="file:///C:/Users/PC/Desktop/cart/logo.png" alt="logo MELOTREX" 
+                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23c02f2f\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\' font-family=\'Arial\'%3EM%3C/text%3E%3C/svg%3E';">
+                </div>
+            </div>
+            <div class="name-title">
+                <h1>Abdou Sall</h1>
+                <div class="role">
+                    <i class="fas fa-user-tie"></i> Responsable
+                </div>
+            </div>
+            <div class="company-detail">
+                <div class="info-line"><i class="fas fa-building"></i> MELOTREX SAS</div>
+                <div class="adresse">
+                    61-69 rue Camille Pelletan<br>
+                    immeuble Emeraude 2<br>
+                    33150 Cenon, France
+                </div>
+            </div>
+        </div>
+
+        <!-- Ligne Enregistrer / Partager + icônes sociales -->
+        <div class="action-row">
+            <div class="contact-buttons">
+                <span class="btn-outline"><i class="far fa-address-card"></i> Enregistrer</span>
+                <span class="btn-solid"><i class="fas fa-share-alt"></i> Partager</span>
+            </div>
+            <div class="share-icons">
+                <a href="https://www.linkedin.com/in/abdou-sall-b6021a153/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <i class="fas fa-envelope"></i>
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+        </div>
+
+        <!-- Zone "CONNECTER" -->
+        <div style="padding: 0.2rem 2.2rem 0; background: white; font-weight: 600; color: #c02f2f; font-size: 1.5rem;">
+            CONNECTER
+        </div>
+
+        <!-- Grille 4x2 de contacts -->
+        <div class="connect-grid">
+            <!-- WhatsApp -->
+            <div class="connect-item">
+                <a href="#" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+            </div>
+            <!-- e‑mail -->
+            <div class="connect-item">
+                <a href="mailto:a.sall@melotrex.com">
+                    <i class="fas fa-envelope"></i>
+                    <span>e‑mail</span>
+                </a>
+            </div>
+            <!-- appel / téléphone -->
+            <div class="connect-item">
+                <a href="tel:+33769445731">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>appel</span>
+                </a>
+            </div>
+            <!-- localisation -->
+            <div class="connect-item">
+                <a href="https://maps.google.com/?q=61-69+rue+Camille+Pelletan+33150+Cenon" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>localisation</span>
+                </a>
+            </div>
+            <!-- site web -->
+            <div class="connect-item">
+                <a href="https://melotrex.eu/" target="_blank">
+                    <i class="fas fa-globe"></i>
+                    <span>site web</span>
+                </a>
+            </div>
+            <!-- Facebook -->
+            <div class="connect-item">
+                <a href="https://www.facebook.com/kool.deejay" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                    <span>facebook</span>
+                </a>
+            </div>
+            <!-- chaîne vidéo (YouTube) -->
+            <div class="connect-item">
+                <a href="#" target="_blank">
+                    <i class="fas fa-video"></i>
+                    <span>chaine vidéo</span>
+                </a>
+            </div>
+            <!-- Instagram -->
+            <div class="connect-item">
+                <a href="https://www.instagram.com/abdou_khadre_sall/" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    <span>instagram</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bas de carte : coordonnées + QR code -->
+        <div class="qr-footer">
+            <div class="contact-info-compact">
+                <div class="info-line"><i class="fas fa-phone"></i> +33 5 47 79 43 00 (Fax) </div>
+                <div class="info-line"><i class="fas fa-mobile-alt"></i> +33 7 69 44 57 31 </div>
+                <div class="info-line"><i class="fas fa-envelope"></i> a.sall@melotrex.com </div>
+                <div class="info-line"><i class="fas fa-fax"></i> +33 5 47 79 43 00 </div>
+                <div class="info-line" style="margin-top:6px;"><i class="fas fa-link"></i> melotrex.eu</div>
+            </div>
+            <div class="qr-code">
+                <img src="https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=https://melotrex.eu/&choe=UTF-8" 
+                     alt="QR Melotrex">
+                <span>scan · site web</span>
+            </div>
+        </div>
+
+        <!-- petite signature -->
+        <div style="background: white; padding: 0.2rem 2.2rem 1.2rem 2.2rem; text-align: right; color: #c07a7a; font-size: 0.9rem; border-top: 1px solid #fadcdc;">
+            <i class="fas fa-check-circle" style="color: #c02f2f;"></i> connecté avec MELOTREX
+        </div>
+    </div>
+
+    <!-- footnote discrète -->
+    <div style="position: fixed; bottom: 6px; right: 16px; opacity:0.4; font-size:0.75rem; color:#b24646;">
+        carte Abdou Sall · logo rouge
+    </div>
+</body>
+</html>
